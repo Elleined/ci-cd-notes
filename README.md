@@ -42,3 +42,12 @@ Thats why we need CI/ CD to resolved all of this increasing our productivity and
 - *Quality Assurance Team*: Responsible for testing the development team delivered project and also verify and validate all the system requirements.
 - *Operation Team*: Responsible for Deployment of project.
 ###### Development + Operation Team => DevOps
+
+# What is Jenkins
+- Free and open-source software
+- Written in Java Languange
+- Used for automation pf Build and Deployment process.
+- Using Jenkins we can implement CI/ CD
+
+# For more Reference
+- [Ashok IT CI/ CD Youtube Video](https://youtu.be/Ri-URt8gPCk)
