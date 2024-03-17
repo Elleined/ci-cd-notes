@@ -11,11 +11,14 @@ Notes for CI/ CD
 ## CD (Continuous Delivery)
 - That means making your source code ready to be released in production/ live environment. Also having a specific version of your project ready to be delivered in your client or to your co-workers or deployed in different environments(To be discussed later).
 
-
 # Different Realtime Enviroments
 - Development Environment
 - Quality Assurance Environment
 - User Assurance Test Environment
 - Production Environment
 
-- 
+# Different Type of Teams in Realtime Project
+- *Development Team*: Responsible for writing project source code.
+- *Quality Assurance Team*: Responsible for testing the development team delivered project and also verify and validate all the system requirements.
+- *Operation Team*: Responsible for Deployment of project.
+## Development + Operation Team => DevOps
