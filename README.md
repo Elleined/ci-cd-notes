@@ -12,8 +12,9 @@ Notes for CI/ CD
 - That means making your source code ready to be released in production/ live environment. Also having a specific version of your project ready to be delivered in your client or to your co-workers or deployed in different environments(To be discussed later).
 
 ## Why do need CI/ CD?
-- First we identify the manual process of how our source code will reach upto deployment
-### Steps Build and Deployment Process
+First we identify the manual process of how our source code will reach upto deployment.
+
+### Steps of Build and Deployment Process
 1. Commit and push your latest code in remote repository.
 2. Run unit test before building your project.
 3. Build your project to create war or jar file.
@@ -30,7 +31,6 @@ As you can see theres nothing wrong in this stepd but imagine doing it every day
 
 Thats why we need CI/ CD to resolved all of this increasing our productivity and less time and effort for this repeated work.
 
-
 # Different Realtime Enviroments
 - Development Environment
 - Quality Assurance Environment
@@ -41,4 +41,4 @@ Thats why we need CI/ CD to resolved all of this increasing our productivity and
 - *Development Team*: Responsible for writing project source code.
 - *Quality Assurance Team*: Responsible for testing the development team delivered project and also verify and validate all the system requirements.
 - *Operation Team*: Responsible for Deployment of project.
-## Development + Operation Team => DevOps
+###### Development + Operation Team => DevOps
