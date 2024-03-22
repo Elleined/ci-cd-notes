@@ -49,6 +49,10 @@ Thats why we need CI/ CD to resolved all of this increasing our productivity and
 - Used for automation pf Build and Deployment process.
 - Using Jenkins we can implement CI/ CD
 
+## What is pipeline
+- It is the series of steps to automate the build and deployment process of your project.
+###### Its like your house water pipeline how will the water flow through the pipeline to reach the water destination.
+
 ## Jenkins Project Setup
 ### Source Code Management
     - Where your source code coming from (Usually Github is used in this)
