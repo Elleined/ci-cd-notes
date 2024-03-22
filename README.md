@@ -1,5 +1,5 @@
-# ci-cd-notes
-Notes for CI/ CD
+# jenkins-notes
+Notes for Jenkins a CI/ CD Tool for DevOps
 
 # What is CI/ CD?
 - One of the Approach of SDLC.
