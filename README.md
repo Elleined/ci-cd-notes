@@ -75,28 +75,116 @@ Thats why we need CI/ CD to resolved all of this increasing our productivity and
 ### Declarative Pipeline: Starts with *pipeline*
 
 ## What is jenkinsfile
-
-```
+```Jenkinsfile
 pipeline {
-  agent any
-  stages {
-      stage("Checkout") {
-            when {
-              // Execute only if condition is true
-            }
-            git branch: '<branch_name>', credential: '<credential_if_your_repo_is_private>', url: '<github_url>'
-      }
-      stage("Clean Install") {
-         sh 'mvn clean install'
-      }
-  }
-  post { // Literallg Anything you want to do after a successful build
-        always {}
-        success {}
-        failure {}
-  }
+  	agent any
+
+	tools { // Add tools here
+	}
+
+	environment { // Add environment variables here to be access in this Jenkinsfile
+	}
+
+	stages { // Series of Stage to be executed to Automate the build and deployment process of your project
+		stage("<stage_name>") {
+			steps { // This is where your command will go
+			}
+		}
+	}
+
+	post {
+		always {} // Execute any command no matter what happen
+		success {} // Execute any command only in build success 
+		failure {} // Execute any command only in build failure
+	}
 }
+```
+
+# Basic Jenkins Set up when you are using Java + Maven + Docker
+## Installation (Only do these steps once)
+1. [Install Jenkins Server](https://github.com/ashokitschool/DevOps-Documents/blob/main/01-Jenkins-Server-Setup.md)
+2. [Add Maven Settings in Jenkins](https://github.com/ashokitschool/DevOps-Documents/blob/main/04-Jenkins-Docker-Project.md#step-2--configure-maven-as-global-tool-in-jenkins)
+3. [Install Docker and Add User Priviledges](https://github.com/ashokitschool/DevOps-Documents/blob/main/04-Jenkins-Docker-Project.md#step-3--setup-docker-in-jenkins)
+
+## Jenkins Job Environment Setup (Only do these steps once)
+4. Create DockerHub Credential(Access Token) for jenkins. The idea is for jenkins to have permission to access your dockerhub account
+   - Goto Your DockerHub Account > Click your Profile > My Account > Security > Click New Access Token > Provide the required fields > Click Generate > Click copy and close.
+5. Add the DockerHub Credentials(Access Token) in Jenkins Server
+   - Goto Your Jenkins Webb App > Manage Jenkins > Under Security Tab (Click Credentials) > Under Stores scoped to Jenkins (Click System) > Click Global credentials (unrestricted) > Click Add Credential > Add Username(Your DockerHub Username), Add Password (Your DockerHub Credential Access Token), Add ID (You will use this ID to access your credentials in Jenkins pipeline code) > Click Create
+  
+## Jenkins Job Setup 
+1. Create a Jenkins Pipeline
+2. New Item
+3. Provide Job Name and Click Pipeline
+4. Add GitHub project link
+5 Under Build Trigger > Check POLL SCM (Everytime you push in specified repo this job will be triggereed automatically) and supply the cron expression.
+6. Add Pipeline Script (I will use my own api the security-question-api as example).
+```Jenkinsfile
+pipeline {
+    agent any
+    
+    tools {
+        maven 'Maven 3.9.6' // Maven 3.9.6 is the name of maven I previously provide in setting up maven in jenkins 
+    }
+    
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('docker-hub-access-token-for-jenkins') // docker-hub-access-token-for-jenkins is the ID of my previously created credential
+    }
+    
+    stages {
+        stage("Clone Security Question API from Github") {
+            steps {
+                echo "Cloning Security Question API from Github. Please Wait..."
+                git branch: 'main', 
+                    url: 'https://github.com/Elleined/security-question-api'
+                echo "Cloning Security Question API from Github. Success!"
+            }
+        }
+        
+        stage("Build project using maven") {
+            steps {
+                echo "Cleaning and Generating jar file using maven. Please Wait..."
+                sh 'mvn clean install'
+                echo "Cleaning and Generating jar file using maven. Success!"
+            }
+        }
+        
+        stage("Create Docker Image") {
+            steps {
+                echo "Creating docker image. Please Wait..."
+                sh 'docker build -t sqa:latest .'
+                echo "Creating docker image. Success!"
+            }
+        }
+        
+        stage("Log in to DockerHub") {
+            steps {
+                echo "Logging in to DockerHub. Please Wait..."
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                echo "Logging in to DockerHub. Success!"
+            }
+        }
+        
+        stage("Push docker image to DockerHub") {
+            steps {
+                echo "Pushing docker image to DockerHub. Please Wait..."
+                sh 'docker tag sqa:latest elleined/sqa:latest'
+                sh 'docker push elleined/sqa:latest'
+                echo "Pushing docker image to DockerHub. Success!"
+            }
+        }
+        
+    } // End of Stages
+    
+    post {
+        always {
+            sh 'docker logout'
+        }
+    }
+    
+} // End of Pipeline
 ```
 
 # For more Reference
 - [Ashok IT CI/ CD Youtube Video](https://youtu.be/Ri-URt8gPCk)
+- [DevOps Documentation](https://github.com/ashokitschool/DevOps-Documents)
