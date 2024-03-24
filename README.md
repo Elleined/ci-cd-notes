@@ -185,6 +185,28 @@ pipeline {
 } // End of Pipeline
 ```
 
+# Backup and Restore
+## Installation
+1. Go to Manage Jenkins > Click Plugins > Available Plugins
+3. Search ThinBackup and install
+4. Restart the jenkins server by http://<jenkins_server_ip>:<jenkins_server_port>/restart
+5. Go to Manage Jenkins > Under Tools and Action > Click ThinBackup
+6. Click Settings
+7. Fill out the required configuration fields to backup and restore jenkins server (!!!Note backup directory must be */var/lib/jenkins/backup* to avoid headache)
+
+## Backup
+- Usually backups runs automatically depends on cron expression you set in thin backup settings. Otherwise to run backup manually heres the steps.
+1. Go to Manage Jenkins > Under Tools and Action > Click ThinBackup
+2. Click Backup Now and that's it
+
+## Restore
+1. Go to Manage Jenkins > Under Tools and Action > Click ThinBackup
+2. Click Restore and Select the backup you want to restore.
+3. Lastly restart the jenkins server to reflect the restored backup
+4. Restart the jenkins server by http://<jenkins_server_ip>:<jenkins_server_port>/restart
+
 # For more Reference
-- [Ashok IT CI/ CD Youtube Video](https://youtu.be/Ri-URt8gPCk)
-- [DevOps Documentation](https://github.com/ashokitschool/DevOps-Documents)
+- [Ashok IT Theorethical CI/ CD Youtube Video](https://youtu.be/Ri-URt8gPCk)
+- [Ashok IT Practical CI/ CD Youtube Video](https://www.youtube.com/watch?v=4cG7dWKbrC8)
+- [Ashok IT DevOps Documentation](https://github.com/ashokitschool/DevOps-Documents)
+- [Ashok IT Backup and Restore](https://www.youtube.com/watch?v=5Tb-AOUFuKQ&t=106s)
